@@ -98,9 +98,10 @@ node_adress = str(uuid4().replace('-', ''))
 # Creating a BlockChain
 blockchain = BlockChain()
 
-####################### This needs improvement #######################
-# "@app"
-
+"""
+##############################################
+"@app"
+"""
 # Mining new block
 @app.route('/mine_block', methods=['GET'])
 
@@ -150,3 +151,11 @@ def add_transaction():
     index = blockchain.add_transaction(json['sender'], json['receiver'], json['amount'])
     response = {'message': f'This transaction will be add to the block {index}'}
     return jsonify(response), 201
+
+
+
+
+"""
+if __name__ == '__main__':
+    app.run()
+"""
