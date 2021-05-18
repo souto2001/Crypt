@@ -98,6 +98,9 @@ node_adress = str(uuid4().replace('-', ''))
 # Creating a BlockChain
 blockchain = BlockChain()
 
+# Flask (webapp)
+app = Flask(__name__)
+
 """
 "@app"
 """
