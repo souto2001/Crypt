@@ -98,7 +98,8 @@ node_adress = str(uuid4().replace('-', ''))
 # Creating a BlockChain
 blockchain = BlockChain()
 
-# This needs improvement 
+####################### This needs improvement #######################
+# "@app"
 
 # Mining new block
 @app.route('/mine_block', methods=['GET'])
