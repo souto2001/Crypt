@@ -1,7 +1,7 @@
 # xCode ^0.0.0;
 # Zaaf: https://github.com/souto2001
 
-# This code is still in TEST
+# This code is still in BETA
 
 import datetime
 import hashlib
@@ -12,7 +12,7 @@ from uuid import uuid4
 from urllib.parse import urlparse
 
 
-# Build Blockchain
+# Blockchain
 class BlockChain:
     def __init__(self):
         self.chain = []
@@ -99,7 +99,6 @@ node_adress = str(uuid4().replace('-', ''))
 blockchain = BlockChain()
 
 """
-##############################################
 "@app"
 """
 # Mining new block
@@ -120,7 +119,7 @@ def mine_block():
         'previous_hash': block['previous_hash'],
         'transactions': block['transactions']
     }
-    return jsonify(response), 200
+    return jsonify(response), 200 # OK
 
 # Getting the full blockchain
 @app.route('/get_chain', methods = ['GET'])
@@ -129,7 +128,7 @@ def get_chain():
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
     }
-    return jsonify(response), 200
+    return jsonify(response), 200 # OK
 
 # Check if blockchain is valid
 @app.route('/is_valid', methods = ['GET'])
@@ -139,7 +138,7 @@ def is_valid():
         response = {'message': 'The block Chain is valid.'}
     else:
         response = {'message': 'The block Chain is not valid.'}
-    return jsonify(response), 200
+    return jsonify(response), 200 # OK
 
 # Adding a new transaction
 @app.route('/add_transaction', methods = ['POST'])
@@ -150,10 +149,35 @@ def add_transaction():
         return 'Some elements of the transaction are missing', 400 # BAD REQUEST
     index = blockchain.add_transaction(json['sender'], json['receiver'], json['amount'])
     response = {'message': f'This transaction will be add to the block {index}'}
-    return jsonify(response), 201
+    return jsonify(response), 201 # Created
 
+# Connecting new nodes
+@app.route('/connect_node', methods = ['POST'])
+def connect_node():
+    json = request.get_json()
+    nodes = json.get('node')
+    if  nodes is None:
+        return 'No node', 400
+    for node in nodes:
+        blockchain.add_node(node)
+    response = {'message': 'All nodes connect',
+                'Total nodes': list(blockchain.nodes)
+    }
+    return jsonify(response), 201 # OK
 
-
+# Replace for longest chain IF NECESSARY
+@app.route('/replace', methods = ['GET'])
+def replace_chain():
+    chain_replace = blockchain.get_chain_replace()
+    if chain_replace:
+        response = {'message': 'The node had a different chains so the chain was replace',
+                    'new_chain': blockchain.chain
+        }
+    else:
+        response = {'message': 'All good',
+                    'chain': blockchain.chain
+        }
+    return jsonify(response), 200 # OK
 
 """
 if __name__ == '__main__':
