@@ -41,7 +41,7 @@ class BlockChain:
         while check_proof is False:
             hash_operation = hashlib.sha256(str(new_proof ** 2 - previous_proof ** 2).encode()).hexdigest() 
             if hash_operation[:4] == '0000':
-                chack_proof = True
+                check_proof = True
             else:
                 new_proof += 1
             return new_proof
