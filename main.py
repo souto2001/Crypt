@@ -11,6 +11,7 @@ import requests
 from uuid import uuid4
 from urllib.parse import urlparse
 
+node = 'http://127.0.0.1:5000'
 
 # Blockchain
 class BlockChain:
@@ -80,7 +81,7 @@ class BlockChain:
         longest_chain = None
         max_length = len(self.chain)
         for node in network:
-            response = request.get(f'http://{node}/get_chain')  # "http:127.0.0.1:5000/get_chain"
+            response = request.get(f'http://{node}/get_chain')  # http:127.0.0.1:5000/get_chain
             if response.status_code == 200:
                 length = response.json()['length']
                 chain = response.json()['chain']
@@ -160,7 +161,7 @@ def connect_node():
     json = request.get_json()
     nodes = json.get('node')
     if  nodes is None:
-        return 'No node', 400
+        return 'No node', 400 # Error
     for node in nodes:
         blockchain.add_node(node)
     response = {'message': 'All nodes connect',
@@ -173,7 +174,7 @@ def connect_node():
 def replace_chain():
     chain_replace = blockchain.get_chain_replace()
     if chain_replace:
-        response = {'message': 'The node had a different chains so the chain was replace',
+        response = {'message': 'The node had a different chains so the chains was replace',
                     'new_chain': blockchain.chain
         }
     else:
