@@ -1,12 +1,13 @@
-# xCode ^0.0.0;
-# Zaaf: https://github.com/souto2001
+"""
+Zaaf: https://github.com/souto2001
+This code is still in BETA
+"""
 
-# This code is still in BETA
 
 import datetime
 import hashlib
 import json
-from flask import Flask, json, request
+from flask import Flask, jsonify, request
 import requests
 from uuid import uuid4
 from urllib.parse import urlparse
@@ -81,7 +82,7 @@ class BlockChain:
         longest_chain = None
         max_length = len(self.chain)
         for node in network:
-            response = request.get(f'http://{node}/get_chain')  # http:127.0.0.1:5000/get_chain
+            response = request.get(f'http://{node}/get_chain')  # http:127.0.0.1:5000
             if response.status_code == 200:
                 length = response.json()['length']
                 chain = response.json()['chain']
