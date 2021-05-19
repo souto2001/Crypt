@@ -3,12 +3,11 @@ Zaaf: https://github.com/souto2001
 This code is still in BETA
 """
 
-
 import datetime
 import hashlib
 import json
 from flask import Flask, jsonify, request
-import requests
+# import requests
 from uuid import uuid4
 from urllib.parse import urlparse
 
@@ -97,7 +96,7 @@ class BlockChain:
 # Creating adress for node on port 5000
 node_adress = str(uuid4().replace('-', ''))
 
-# Creating a BlockChain
+# Creating
 blockchain = BlockChain()
 
 # Flask (webapp)
