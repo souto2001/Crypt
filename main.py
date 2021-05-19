@@ -11,7 +11,7 @@ import requests
 from uuid import uuid4
 from urllib.parse import urlparse
 
-node = 'http://127.0.0.1:5000'
+# node = 'http://127.0.0.1:5000'
 
 # Blockchain
 class BlockChain:
@@ -94,17 +94,14 @@ class BlockChain:
         return True
 
 # Creating adress for node on port 5000
-node_adress = str(uuid4().replace('-', ''))
+node_adress = str(uuid4().replace('-', '')) # AttributeError: 'UUID' object has no attribute 'replace'
 
-# Creating
+# "Creating blockchain"
 blockchain = BlockChain()
 
-# Flask (webapp)
+# Flask
 app = Flask(__name__)
 
-"""
-"@app"
-"""
 # Mining new block
 @app.route('/mine_block', methods=['GET'])
 
@@ -183,7 +180,3 @@ def replace_chain():
         }
     return jsonify(response), 200 # OK
 
-"""
-if __name__ == '__main__':
-    app.run()
-"""
