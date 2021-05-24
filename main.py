@@ -10,10 +10,12 @@ from flask import Flask, jsonify, request   # need to fix "from flask"
 import requests
 from uuid import uuid4
 from urllib.parse import urlparse
+
 """
 node = 'http://127.0.0.1:5000'
 This is option if node dont work properly
 """
+
 # Blockchain
 class BlockChain:
     def __init__(self):
